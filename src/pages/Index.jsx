@@ -10,6 +10,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { toast } from "sonner";
+import AudioPlayer from "@/components/AudioPlayer";
 
 const playlistSchema = z.object({
   name: z.string().min(1, "Playlist name is required"),
@@ -31,6 +32,12 @@ const Index = () => {
     setPlaylists([...playlists, newPlaylist]);
     toast("Playlist created successfully!");
     reset();
+  };
+
+  const currentSong = {
+    title: "Sample Song",
+    artist: "Sample Artist",
+    url: "/sample-song.mp3",
   };
 
   return (
@@ -103,20 +110,7 @@ const Index = () => {
         </Card>
       </section>
       <footer className="fixed bottom-0 left-0 right-0 bg-muted/40 p-4 flex items-center justify-between">
-        <div className="flex items-center space-x-4">
-          <button className="p-2">Prev</button>
-          <button className="p-2">Play</button>
-          <button className="p-2">Next</button>
-        </div>
-        <div className="flex-grow mx-4">
-          <div className="h-1 bg-muted rounded-full">
-            <div className="h-full bg-primary rounded-full" style={{ width: "50%" }}></div>
-          </div>
-        </div>
-        <div className="flex items-center space-x-4">
-          <span>00:00</span>
-          <span>03:30</span>
-        </div>
+        <AudioPlayer song={currentSong} />
       </footer>
       <Dialog>
         <DialogTrigger asChild>
